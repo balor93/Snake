@@ -15,7 +15,9 @@ public class Game extends javax.swing.JFrame {
      * Creates new form Game
      */
     public Game() {
+        setLocationRelativeTo(null);
         initComponents();
+        
     }
 
     /**
@@ -27,8 +29,9 @@ public class Game extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabelScore = new javax.swing.JLabel();
+        scoreLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        board = new snake.Board();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemIniGame = new javax.swing.JMenuItem();
@@ -36,18 +39,29 @@ public class Game extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabelScore.setText("Score: ");
-        getContentPane().add(jLabelScore, java.awt.BorderLayout.PAGE_END);
+        scoreLabel.setText("Score: ");
+        getContentPane().add(scoreLabel, java.awt.BorderLayout.PAGE_END);
+
+        javax.swing.GroupLayout boardLayout = new javax.swing.GroupLayout(board);
+        board.setLayout(boardLayout);
+        boardLayout.setHorizontalGroup(
+            boardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        boardLayout.setVerticalGroup(
+            boardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 264, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(board, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 264, Short.MAX_VALUE)
+            .addComponent(board, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -55,9 +69,19 @@ public class Game extends javax.swing.JFrame {
         jMenu1.setText("Game");
 
         jMenuItemIniGame.setText("IniGame");
+        jMenuItemIniGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemIniGameActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItemIniGame);
 
         jMenuItemExit.setText("Exit");
+        jMenuItemExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExitActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItemExit);
 
         jMenuBar1.add(jMenu1);
@@ -66,6 +90,16 @@ public class Game extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
+       System.exit(0);
+    }//GEN-LAST:event_jMenuItemExitActionPerformed
+
+    private void jMenuItemIniGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemIniGameActionPerformed
+        
+        board.initGame();
+        
+    }//GEN-LAST:event_jMenuItemIniGameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -103,11 +137,12 @@ public class Game extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabelScore;
+    private snake.Board board;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemIniGame;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel scoreLabel;
     // End of variables declaration//GEN-END:variables
 }

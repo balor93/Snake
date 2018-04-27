@@ -9,6 +9,15 @@ package snake;
  *
  * @author alu20909379x
  */
-public class SpecialFood extends Food {
+public class SpecialFood extends Food  {
     private int visibleTimer;
+
+    public SpecialFood(int visibleTimer, Snake snake) {
+        super(snake);
+        this.visibleTimer = visibleTimer;
+    }
+
+   
+
+    
 }
