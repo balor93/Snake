@@ -34,7 +34,7 @@ public class GameOver extends javax.swing.JDialog {
     private void initComponents() {
 
         gameOverLabel = new javax.swing.JLabel();
-        btnExit = new javax.swing.JButton();
+        btnRecords = new javax.swing.JButton();
         scoreLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -43,10 +43,10 @@ public class GameOver extends javax.swing.JDialog {
         gameOverLabel.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
         gameOverLabel.setText("GAME OVER");
 
-        btnExit.setText("EXIT");
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
+        btnRecords.setText("RECORDS");
+        btnRecords.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
+                btnRecordsActionPerformed(evt);
             }
         });
 
@@ -70,7 +70,7 @@ public class GameOver extends javax.swing.JDialog {
                         .addComponent(gameOverLabel)
                         .addGap(35, 35, 35))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRecords, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(142, 142, 142))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(103, 103, 103)
@@ -85,16 +85,16 @@ public class GameOver extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scoreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRecords, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_btnExitActionPerformed
+    private void btnRecordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecordsActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_btnRecordsActionPerformed
 
     private void scoreLabelPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_scoreLabelPropertyChange
         // TODO add your handling code here:
@@ -106,7 +106,7 @@ public class GameOver extends javax.swing.JDialog {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnRecords;
     private javax.swing.JLabel gameOverLabel;
     private javax.swing.JLabel scoreLabel;
     // End of variables declaration//GEN-END:variables

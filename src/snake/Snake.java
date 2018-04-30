@@ -68,10 +68,33 @@ public class Snake {
         
         
     }
-     public boolean hitWall (){
+    
+    public Node getNextNode(){
         Node head = listNodes.get(0);
+        Node nextNode=null;
+        switch(direccion){
+            case DOWN:
+                nextNode= new Node(head.row+1, head.col, Color.red);
+                break;
+            case UP:
+                nextNode = new Node(head.row-1, head.col, Color.red);
+                break;
+            case LEFT:
+                nextNode = new Node(head.row, head.col-1, Color.red);
+                break;
+            case RIGHT:
+                nextNode= new Node(head.row, head.col+1, Color.red);
+                break;
         
-         if(head.row  > Board.NUM_ROWS-1 || head.row  < 0  || head.col  > Board.NUM_COLS-1 || head.col  < 0 ){
+            }
+        return nextNode;
+       }
+    
+    
+     public boolean hitWall (){
+        
+        
+         if(getNextNode().row  > Board.NUM_ROWS-1 || getNextNode().row  < 0  || getNextNode().col  > Board.NUM_COLS-1 || getNextNode().col  < 0 ){
              return true;
          }else{
              return false;
@@ -79,10 +102,10 @@ public class Snake {
          
      }
      public boolean hitSnake(){
-          Node head = listNodes.get(0);
+          
           boolean check=false;
           for(int i =1; i<listNodes.size();i++){
-             if(listNodes.get(i).row==head.row && listNodes.get(i).col==head.col){
+             if(listNodes.get(i).row==getNextNode().row && listNodes.get(i).col==getNextNode().col){
                  return true;
              }
           }

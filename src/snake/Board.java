@@ -116,6 +116,14 @@ public class Board extends JPanel implements ActionListener{
         this.parentFrame = parentFrame;
     }
     
+    public boolean incrementLevels(){
+        if(scoreBoard.getScore()%5==0 ){
+            
+            return true;
+        }
+        return false;        
+    }
+    
     
     
     
@@ -126,6 +134,10 @@ public class Board extends JPanel implements ActionListener{
            if(eat()){
                 snake.move(true);
                 scoreBoard.increment(1);
+                if(incrementLevels()){
+                    deltaTime=deltaTime-50;
+                    timer.setDelay(deltaTime);
+                }
                 food= new Food(snake);
            }else{
                 snake.move(false); 
@@ -142,11 +154,12 @@ public class Board extends JPanel implements ActionListener{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(snake!=null){
-        snake.drawSnake(g, squareWidth(), squareHeight());
-        }
+        drawBorder(g);
          if(food!=null ){
         food.drawFood(g, squareWidth(), squareHeight());
+        }
+         if(snake!=null){
+        snake.drawSnake(g, squareWidth(), squareHeight());
         }
         
         
@@ -161,11 +174,13 @@ public class Board extends JPanel implements ActionListener{
     
     
      public void gameOver() {
-        //scoreBoard.setText("game over");
+        scoreBoard.setText("game over");
         removeKeyListener(myKeyAdepter);
         timer.stop();
         GameOver d = new GameOver(parentFrame, true, scoreBoard);
         d.setVisible(true);
+        RecordsDialog r = new RecordsDialog(parentFrame, true, scoreBoard.getScore());
+        r.setVisible(true);
         
 
     }
@@ -177,6 +192,11 @@ public class Board extends JPanel implements ActionListener{
             return false;
         }
         
+    }
+    
+    public void drawBorder(Graphics g){
+        g.setColor(Color.black);
+        g.drawRect(0, 0, NUM_COLS*squareWidth(), NUM_ROWS*squareHeight());
     }
     
     
