@@ -119,15 +119,17 @@ public class Board extends JPanel implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent ae) {
-       if(!snake.hitWall()){
+        Toolkit.getDefaultToolkit().sync();
+        if(!snake.hitWall()){
            if(eat()){
                 snake.move(true); 
+                food= new Food(snake);
            }else{
                 snake.move(false); 
            }
-        snake.move(true); 
+         
         repaint();
-        Toolkit.getDefaultToolkit().sync();
+        
        }else{
            gameOver();
        }
@@ -140,7 +142,7 @@ public class Board extends JPanel implements ActionListener{
         if(snake!=null){
         snake.drawSnake(g, squareWidth(), squareHeight());
         }
-         if(food!=null){
+         if(food!=null ){
         food.drawFood(g, squareWidth(), squareHeight());
         }
         

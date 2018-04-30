@@ -71,14 +71,27 @@ public class Snake {
      public boolean hitWall (){
         Node head = listNodes.get(0);
         
-         if(head.row  >= Board.NUM_ROWS-1 || head.row  < 0  || head.col  > Board.NUM_COLS-1 || head.col  < 0 ){
+         if(head.row  > Board.NUM_ROWS-1 || head.row  < 0  || head.col  > Board.NUM_COLS-1 || head.col  < 0 ){
              return true;
          }else{
              return false;
          }
          
      }
-     
+     public boolean hitSnake(){
+          Node head = listNodes.get(0);
+          boolean check=true;
+          for(Node n : listNodes){
+             if(n.row==head.row && n.col==head.col){
+                 return true;
+             }else{
+                 check= false;
+             }
+         }
+          return check;
+          
+     }
+    
      
 
     
