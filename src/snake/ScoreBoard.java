@@ -1,19 +1,17 @@
-package snake;
-
-
-import javax.swing.JLabel;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package snake;
+
+import javax.swing.JLabel;
+
 /**
  *
- * @author alu20482156n
+ * @author alu20909379x
  */
-public class ScoreBoard extends JLabel {
-
+public class ScoreBoard extends JLabel{
     private int score;
 
     public ScoreBoard() {
@@ -23,7 +21,7 @@ public class ScoreBoard extends JLabel {
 
     public void increment(int points) {
         score += points;
-        setText("Score:" + score);
+       setText("Score:" + score);
     }
 
     public void reset() {
@@ -46,7 +44,4 @@ public class ScoreBoard extends JLabel {
    public String endScore(){
        return "Score : "+getScore();
    }
-    
-    
-
 }

@@ -17,6 +17,7 @@ public class Game extends javax.swing.JFrame {
     public Game() {
         setLocationRelativeTo(null);
         initComponents();
+        board.setScoreBoard(scoreBoard);
         
     }
 
@@ -29,8 +30,8 @@ public class Game extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        scoreLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        scoreBoard = new snake.ScoreBoard();
         board = new snake.Board();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -39,8 +40,10 @@ public class Game extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        scoreLabel.setText("Score: ");
-        getContentPane().add(scoreLabel, java.awt.BorderLayout.PAGE_END);
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        scoreBoard.setText("Score:");
+        jPanel1.add(scoreBoard, java.awt.BorderLayout.PAGE_END);
 
         javax.swing.GroupLayout boardLayout = new javax.swing.GroupLayout(board);
         board.setLayout(boardLayout);
@@ -53,16 +56,7 @@ public class Game extends javax.swing.JFrame {
             .addGap(0, 264, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(board, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(board, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        jPanel1.add(board, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -98,6 +92,7 @@ public class Game extends javax.swing.JFrame {
     private void jMenuItemIniGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemIniGameActionPerformed
         
         board.initGame();
+       
         
     }//GEN-LAST:event_jMenuItemIniGameActionPerformed
 
@@ -143,6 +138,6 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemIniGame;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel scoreLabel;
+    private snake.ScoreBoard scoreBoard;
     // End of variables declaration//GEN-END:variables
 }

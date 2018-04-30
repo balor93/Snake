@@ -80,14 +80,12 @@ public class Snake {
      }
      public boolean hitSnake(){
           Node head = listNodes.get(0);
-          boolean check=true;
-          for(Node n : listNodes){
-             if(n.row==head.row && n.col==head.col){
+          boolean check=false;
+          for(int i =1; i<listNodes.size();i++){
+             if(listNodes.get(i).row==head.row && listNodes.get(i).col==head.col){
                  return true;
-             }else{
-                 check= false;
              }
-         }
+          }
           return check;
           
      }

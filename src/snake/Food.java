@@ -43,12 +43,10 @@ public class Food {
     
      public boolean checkRowColSnake(Snake snake) {
           
-         boolean check=true;
+         boolean check=false;
           for(Node n : snake.listNodes){
              if(n.row==getRandomRow() && n.col==getRandomCol()){
                  return true;
-             }else{
-                 check= false;
              }
          }
           return check;

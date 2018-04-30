@@ -84,7 +84,7 @@ public class Board extends JPanel implements ActionListener{
         super();
         
         myKeyAdepter = new MyKeyAdapter();
-        deltaTime = 500;
+        deltaTime = 350;
         timer = new Timer(deltaTime, this);
         setFocusable(true);
         requestFocusInWindow();
@@ -96,7 +96,7 @@ public class Board extends JPanel implements ActionListener{
         timer.start();
        snake=new Snake();
        food=new Food(snake);
-       // scoreBoard.reset();
+        scoreBoard.reset();
         removeKeyListener(myKeyAdepter);
         addKeyListener(myKeyAdepter);
         
@@ -104,7 +104,9 @@ public class Board extends JPanel implements ActionListener{
     }
     
     
-    
+    public void setScoreBoard(ScoreBoard scoreBoard){
+        this.scoreBoard=scoreBoard;
+    }
     
     
     
@@ -120,9 +122,10 @@ public class Board extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent ae) {
         Toolkit.getDefaultToolkit().sync();
-        if(!snake.hitWall()){
+        if( !snake.hitWall() && !snake.hitSnake()){
            if(eat()){
-                snake.move(true); 
+                snake.move(true);
+                scoreBoard.increment(1);
                 food= new Food(snake);
            }else{
                 snake.move(false); 
@@ -158,7 +161,7 @@ public class Board extends JPanel implements ActionListener{
     
     
      public void gameOver() {
-        scoreBoard.setText("game over");
+        //scoreBoard.setText("game over");
         removeKeyListener(myKeyAdepter);
         timer.stop();
         GameOver d = new GameOver(parentFrame, true, scoreBoard);
