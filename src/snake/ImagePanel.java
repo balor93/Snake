@@ -23,7 +23,7 @@ public class ImagePanel extends JPanel{
       super.paintComponent(g);
       Dimension tamanio = getSize();
       ImageIcon imagenFondo = new ImageIcon(getClass().
-      getResource("/Snake2.jpg"));
+      getResource("/snake/Snake2.jpg"));
       g.drawImage(imagenFondo.getImage(), 0, 0,
       tamanio.width, tamanio.height, null);
       setOpaque(false);

@@ -50,16 +50,16 @@ public class Cover extends javax.swing.JDialog {
         imagePanel1Layout.setHorizontalGroup(
             imagePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(imagePanel1Layout.createSequentialGroup()
-                .addGap(153, 153, 153)
-                .addComponent(jBtnPlay)
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addGap(149, 149, 149)
+                .addComponent(jBtnPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(152, Short.MAX_VALUE))
         );
         imagePanel1Layout.setVerticalGroup(
             imagePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, imagePanel1Layout.createSequentialGroup()
-                .addContainerGap(253, Short.MAX_VALUE)
-                .addComponent(jBtnPlay)
-                .addGap(22, 22, 22))
+                .addContainerGap(294, Short.MAX_VALUE)
+                .addComponent(jBtnPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
 
         jPanel1.add(imagePanel1, java.awt.BorderLayout.CENTER);
@@ -70,7 +70,8 @@ public class Cover extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPlayActionPerformed
-        setVisible(false);
+        dispose();
+
     }//GEN-LAST:event_jBtnPlayActionPerformed
 
     /**
