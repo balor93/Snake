@@ -5,19 +5,41 @@
  */
 package snake;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+
 /**
  *
  * @author alu20909379x
  */
-public class SpecialFood extends Food  {
-    private int visibleTimer;
+public class SpecialFood extends Food implements ActionListener {
 
-    public SpecialFood(int visibleTimer, Snake snake) {
+    private int visibleTimer;
+    private Timer time;
+    private Board board;
+
+    public SpecialFood(Snake snake, Board board) {
         super(snake);
-        this.visibleTimer = visibleTimer;
+        visibleTimer = getTimeVisible();
+        time = new Timer(visibleTimer, this);
+        this.board = board;
+        nodeFood.color = Color.BLUE;
+        time.start();
     }
 
-   
+    public int getTimeVisible() {
+        return (int) (Math.random() * 10 + 5) * 1000;
+    }
 
     
+
+    @Override
+    public void actionPerformed(ActionEvent al) {
+        board.removeSpecialFood();
+        time.stop();
+    }
+
 }

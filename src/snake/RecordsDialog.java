@@ -1,6 +1,5 @@
 package snake;
 
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -79,7 +78,7 @@ public class RecordsDialog extends javax.swing.JDialog {
                 lineCount++;
                 listOfRecords.add(new Record(Integer.parseInt(lineRecord[0]), lineRecord[1]));
             }
-            if (lineCount > 0 && lineCount >=5) {
+            if (lineCount > 0 && lineCount >= 5) {
                 try {
                     minRecord = Integer.parseInt(lineRecord[0]);
                 } catch (NumberFormatException e) {
@@ -225,7 +224,7 @@ public class RecordsDialog extends javax.swing.JDialog {
                     lineCounter++;
                 }
             }
-            if(!alreadyWrittenScore){
+            if (!alreadyWrittenScore) {
                 output.println(score + ", " + jTextFieldName.getText());
             }
 

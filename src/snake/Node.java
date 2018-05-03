@@ -13,15 +13,15 @@ import java.awt.Graphics;
  * @author alu20909379x
  */
 public class Node {
+
     public int row;
     public int col;
     public Color color;
-    
-    public Node(int row, int col, Color color){
-        this.row=row;
-        this.col=col;
-        this.color=color;
+
+    public Node(int row, int col, Color color) {
+        this.row = row;
+        this.col = col;
+        this.color = color;
     }
-    
-   
+
 }

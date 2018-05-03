@@ -18,7 +18,9 @@ public class Game extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         initComponents();
         board.setScoreBoard(scoreBoard);
-        
+        Cover c = new Cover(this, true);  
+        c.setVisible(true);
+
     }
 
     /**
@@ -49,11 +51,11 @@ public class Game extends javax.swing.JFrame {
         board.setLayout(boardLayout);
         boardLayout.setHorizontalGroup(
             boardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 476, Short.MAX_VALUE)
         );
         boardLayout.setVerticalGroup(
             boardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 264, Short.MAX_VALUE)
+            .addGap(0, 330, Short.MAX_VALUE)
         );
 
         jPanel1.add(board, java.awt.BorderLayout.CENTER);
@@ -86,14 +88,14 @@ public class Game extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
-       System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_jMenuItemExitActionPerformed
 
     private void jMenuItemIniGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemIniGameActionPerformed
-        
+
         board.initGame();
-       
-        
+
+
     }//GEN-LAST:event_jMenuItemIniGameActionPerformed
 
     /**

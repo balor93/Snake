@@ -21,7 +21,7 @@ import javax.swing.Timer;
  *
  * @author alu20909379x
  */
-public class Board extends JPanel implements ActionListener{
+public class Board extends JPanel implements ActionListener {
 
     class MyKeyAdapter extends KeyAdapter {
 
@@ -29,34 +29,34 @@ public class Board extends JPanel implements ActionListener{
         public void keyPressed(KeyEvent e) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
-                    if(snake.getDireccion()!=DireccionType.RIGHT){
+                    if (snake.getDireccion() != DireccionType.RIGHT) {
                         snake.setDireccion(DireccionType.LEFT);
                     }
                     break;
                 case KeyEvent.VK_RIGHT:
-                     if(snake.getDireccion()!=DireccionType.LEFT){
+                    if (snake.getDireccion() != DireccionType.LEFT) {
                         snake.setDireccion(DireccionType.RIGHT);
-                     }
+                    }
                     break;
                 case KeyEvent.VK_UP:
-                     if(snake.getDireccion()!=DireccionType.DOWN){
+                    if (snake.getDireccion() != DireccionType.DOWN) {
                         snake.setDireccion(DireccionType.UP);
-                     }
+                    }
                     break;
                 case KeyEvent.VK_DOWN:
-                     if(snake.getDireccion()!=DireccionType.UP){
-                         snake.setDireccion(DireccionType.DOWN);
-                     }
+                    if (snake.getDireccion() != DireccionType.UP) {
+                        snake.setDireccion(DireccionType.DOWN);
+                    }
                     break;
                 case KeyEvent.VK_P:
                     if (!timer.isRunning()) {
                         scoreBoard.printScore();
                         timer.start();
-                        
+
                     } else {
                         timer.stop();
                         scoreBoard.pause();
-                        
+
                     }
                     break;
                 default:
@@ -68,7 +68,7 @@ public class Board extends JPanel implements ActionListener{
         }
 
     }
-    
+
     public static final int NUM_ROWS = 25;
     public static final int NUM_COLS = 25;
     private Timer timer;
@@ -76,94 +76,106 @@ public class Board extends JPanel implements ActionListener{
     public ScoreBoard scoreBoard;
     private JFrame parentFrame;
     private int deltaTime;
-    private Food food;    
+    private Food food;
     private Snake snake;
+    private SpecialFood specialFood;
+    private int countFoods;
 
     public Board() {
-        
+
         super();
-        
+
         myKeyAdepter = new MyKeyAdapter();
         deltaTime = 350;
         timer = new Timer(deltaTime, this);
         setFocusable(true);
         requestFocusInWindow();
-        snake=new Snake();
+        snake = new Snake();
+        countFoods = 0;
     }
-    
-    public void initGame(){
-       
+
+    public void initGame() {
+
         timer.start();
-       snake=new Snake();
-       food=new Food(snake);
+        snake = new Snake();
+        food = new Food(snake);
         scoreBoard.reset();
         removeKeyListener(myKeyAdepter);
         addKeyListener(myKeyAdepter);
-        
-    
+
     }
-    
-    
-    public void setScoreBoard(ScoreBoard scoreBoard){
-        this.scoreBoard=scoreBoard;
+
+    public void setScoreBoard(ScoreBoard scoreBoard) {
+        this.scoreBoard = scoreBoard;
     }
-    
-    
-    
-    
-    
+
     public void setParentFrame(JFrame parentFrame) {
         this.parentFrame = parentFrame;
     }
-    
-    public boolean incrementLevels(){
-        if(scoreBoard.getScore()%5==0 ){
-            
+
+    public boolean incrementLevels() {
+        if (scoreBoard.getScore() % 5 == 0 && deltaTime!=0) {
+
             return true;
         }
-        return false;        
+        return false;
     }
-    
-    
-    
-    
+
     @Override
     public void actionPerformed(ActionEvent ae) {
-        Toolkit.getDefaultToolkit().sync();
-        if( !snake.hitWall() && !snake.hitSnake()){
-           if(eat()){
-                snake.move(true);
+        
+        if (!snake.hitWall() && !snake.hitSnake()) {
+            if (eat()) {
+                snake.setCountGrowSnake(1);
                 scoreBoard.increment(1);
-                if(incrementLevels()){
-                    deltaTime=deltaTime-50;
+                countFoods++;
+                if (countFoods == 5) {
+                    specialFood = new SpecialFood(snake, this);
+                    countFoods = 0;
+                }
+
+                if (incrementLevels()) {
+                    deltaTime = deltaTime - 50;
                     timer.setDelay(deltaTime);
                 }
-                food= new Food(snake);
-           }else{
-                snake.move(false); 
-           }
-         
-        repaint();
-        
-       }else{
-           gameOver();
-       }
-       
+                food = new Food(snake);
+            } else {
+                if (eatSpecialFood()) {
+                    snake.setCountGrowSnake(3);
+                    scoreBoard.increment(3);
+                    specialFood=null;
+
+                }
+
+            }
+            snake.move();
+            repaint();
+            Toolkit.getDefaultToolkit().sync();
+
+        } else {
+            gameOver();
+        }
+
     }
-    
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawBorder(g);
-         if(food!=null ){
-        food.drawFood(g, squareWidth(), squareHeight());
+        if (food != null) {
+            food.drawFood(g, squareWidth(), squareHeight());
         }
-         if(snake!=null){
-        snake.drawSnake(g, squareWidth(), squareHeight());
+
+        if (specialFood != null) {
+            specialFood.drawFood(g, squareWidth(), squareHeight());
         }
-        
-        
+
+        if (snake != null) {
+            snake.drawSnake(g, squareWidth(), squareHeight());
+        }
+
     }
+
     private int squareWidth() {
         return getWidth() / NUM_COLS;
     }
@@ -171,9 +183,8 @@ public class Board extends JPanel implements ActionListener{
     private int squareHeight() {
         return getHeight() / NUM_ROWS;
     }
-    
-    
-     public void gameOver() {
+
+    public void gameOver() {
         scoreBoard.setText("game over");
         removeKeyListener(myKeyAdepter);
         timer.stop();
@@ -181,24 +192,34 @@ public class Board extends JPanel implements ActionListener{
         d.setVisible(true);
         RecordsDialog r = new RecordsDialog(parentFrame, true, scoreBoard.getScore());
         r.setVisible(true);
-        
 
     }
-     
-    public boolean eat(){
-        if(snake.getHeadSnake().col== food.getCol() && snake.getHeadSnake().row == food.getRow()){
+
+    public boolean eat() {
+        if (snake.getHeadSnake().col == food.getCol() && snake.getHeadSnake().row == food.getRow()) {
             return true;
-        }else{
+        } else {
             return false;
         }
-        
+
     }
-    
-    public void drawBorder(Graphics g){
+
+    public boolean eatSpecialFood() {
+        if(specialFood!=null){
+            if (snake.getHeadSnake().col == specialFood.getCol() && snake.getHeadSnake().row == specialFood.getRow()) {
+                return true;
+             } 
+         }
+        return false;
+    }
+
+    public void drawBorder(Graphics g) {
         g.setColor(Color.black);
-        g.drawRect(0, 0, NUM_COLS*squareWidth(), NUM_ROWS*squareHeight());
+        g.drawRect(0, 0, NUM_COLS * squareWidth(), NUM_ROWS * squareHeight());
     }
-    
-    
-    
+
+    public void removeSpecialFood() {
+        specialFood = null;
+    }
+
 }
