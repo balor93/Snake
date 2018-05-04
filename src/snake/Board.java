@@ -74,6 +74,7 @@ public class Board extends JPanel implements ActionListener {
     private Timer timer;
     private MyKeyAdapter myKeyAdepter;
     public ScoreBoard scoreBoard;
+    public Cover cover;
     private JFrame parentFrame;
     private int deltaTime;
     private Food food;
@@ -86,16 +87,22 @@ public class Board extends JPanel implements ActionListener {
         super();
 
         myKeyAdepter = new MyKeyAdapter();
-        deltaTime = 350;
+        deltaTime = 200;
         timer = new Timer(deltaTime, this);
         setFocusable(true);
         requestFocusInWindow();
         snake = new Snake();
         countFoods = 0;
+        
     }
 
     public void initGame() {
-
+        if(cover.isModeHard()){
+        modeHard();
+        }
+        if(cover.isModeNormal()){
+        modeNormal();
+        }
         timer.start();
         snake = new Snake();
         food = new Food(snake);
@@ -104,9 +111,24 @@ public class Board extends JPanel implements ActionListener {
         addKeyListener(myKeyAdepter);
 
     }
+    
+    
+    
+    public void modeHard(){
+        deltaTime = 100;
+        timer = new Timer(deltaTime, this);
+    }
+     public void modeNormal(){
+        deltaTime = 200;
+        timer = new Timer(deltaTime, this);
+    }
 
     public void setScoreBoard(ScoreBoard scoreBoard) {
         this.scoreBoard = scoreBoard;
+    }
+    
+    public void setCover(Cover cover) {
+        this.cover = cover;
     }
 
     public void setParentFrame(JFrame parentFrame) {
@@ -135,7 +157,7 @@ public class Board extends JPanel implements ActionListener {
                 }
 
                 if (incrementLevels()) {
-                    deltaTime = deltaTime - 50;
+                    deltaTime = deltaTime - 20;
                     timer.setDelay(deltaTime);
                 }
                 food = new Food(snake);
@@ -190,7 +212,7 @@ public class Board extends JPanel implements ActionListener {
         timer.stop();
         GameOver d = new GameOver(parentFrame, true, scoreBoard);
         d.setVisible(true);
-        RecordsDialog r = new RecordsDialog(parentFrame, true, scoreBoard.getScore());
+        RecordsDialog r = new RecordsDialog(parentFrame, true, scoreBoard.getScore(), cover );
         r.setVisible(true);
 
     }

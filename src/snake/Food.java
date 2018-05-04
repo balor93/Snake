@@ -18,9 +18,9 @@ public class Food {
 
     public Food(Snake snake) {
 
-        nodeFood = new Node(getRandomRow(), getRandomCol(), Color.green);
+        nodeFood = new Node(getRandomRow(), getRandomCol(), Color.orange);
         while (checkRowColSnake(snake)) {
-            nodeFood = new Node(getRandomRow(), getRandomCol(), Color.green);
+            nodeFood = new Node(getRandomRow(), getRandomCol(), Color.orange);
         }
 
     }
@@ -43,7 +43,7 @@ public class Food {
 
         boolean check = false;
         for (Node n : snake.listNodes) {
-            if (n.row == getRandomRow() && n.col == getRandomCol()) {
+            if (n.row == nodeFood.row && n.col == nodeFood.col) {
                 return true;
             }
         }

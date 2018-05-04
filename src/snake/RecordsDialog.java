@@ -1,11 +1,14 @@
 package snake;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javax.swing.JLabel;
 
 /*
@@ -30,34 +33,42 @@ public class RecordsDialog extends javax.swing.JDialog {
         }
     }
 
-    private static final String RECORDS_FILE_NAME = "records_txt";
+    private static final String RECORDS_FILE_NAME_HARD = "recordsHard.txt";
+    private static final String RECORDS_FILE_NAME_NORMAL = "recordsNormal.txt";
     private int score;
     private JLabel[] recordLabels;
     private int minRecord;
     private ArrayList<Record> listOfRecords;
+    public Cover cover;
 
     /**
      * Creates new form RecordsDialog
      */
-    public RecordsDialog(java.awt.Frame parent, boolean modal, int score) {
+    public RecordsDialog(java.awt.Frame parent, boolean modal, int score, Cover Cover) {
         super(parent, modal);
         initComponents();
-        iniRecordLabels();
+        
+        initRecordLabels();
+
         minRecord = 0;
         this.score = score;
+
         listOfRecords = new ArrayList<Record>();
+        
         try {
             readRecords();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
-        processRecord();
 
+        processRecords();
     }
 
-    private void processRecord() {
+    public void processRecords() {
         jLabelCurrentScore.setText("Your score: " + score);
-        if (score <= minRecord) {
+        if (score > minRecord) {
+
+        } else {
             jLabelName.setVisible(false);
             jTextFieldName.setVisible(false);
         }
@@ -65,25 +76,34 @@ public class RecordsDialog extends javax.swing.JDialog {
 
     private void readRecords() throws IOException {
         BufferedReader input = null;
-
+         
         try {
-            input = new BufferedReader(new FileReader(RECORDS_FILE_NAME));
-
+            if(cover.isModeNormal()){
+            input = new BufferedReader(new FileReader(RECORDS_FILE_NAME_NORMAL));
+            } 
+            if(cover.isModeHard()){
+                input = new BufferedReader(new FileReader(RECORDS_FILE_NAME_HARD));
+            }
             int lineCount = 0;
             String line;
             String[] lineRecord = null;
-            while ((line = input.readLine()) != null && lineCount < 5) {
-                lineRecord = line.split(";");
-                recordLabels[lineCount].setText(lineRecord[0] + " : " + lineRecord[1]);
+
+            while ((line = input.readLine()) != null && (lineCount < 5)) {
+
+                lineRecord = line.split(",");
+                recordLabels[lineCount].setText(lineRecord[0] + ": " + lineRecord[1]);
                 lineCount++;
+
                 listOfRecords.add(new Record(Integer.parseInt(lineRecord[0]), lineRecord[1]));
             }
-            if (lineCount > 0 && lineCount >= 5) {
+            
+            if (lineCount == 5 ) {
                 try {
                     minRecord = Integer.parseInt(lineRecord[0]);
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
+                } catch (NumberFormatException ex) {
+                    ex.printStackTrace();
                 }
+
             }
 
         } finally {
@@ -91,6 +111,7 @@ public class RecordsDialog extends javax.swing.JDialog {
                 input.close();
             }
         }
+
     }
 
     /**
@@ -117,7 +138,12 @@ public class RecordsDialog extends javax.swing.JDialog {
 
         jLabelName.setText("NAME :");
 
-        jTextFieldName.setText("jTextField1");
+        jTextFieldName.setText(".");
+        jTextFieldName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNameActionPerformed(evt);
+            }
+        });
 
         jLabelCurrentScore.setText("jLabel2");
 
@@ -151,8 +177,8 @@ public class RecordsDialog extends javax.swing.JDialog {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelName)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-                        .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                        .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(101, 101, 101))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,28 +221,39 @@ public class RecordsDialog extends javax.swing.JDialog {
 
     private void jButtonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOkActionPerformed
         if (score > minRecord) {
-
             try {
-                saveRecord();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                saveRecords();
 
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
-        System.exit(0);
+
+        dispose();
     }//GEN-LAST:event_jButtonOkActionPerformed
 
-    private void saveRecord() throws IOException {
+    private void jTextFieldNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNameActionPerformed
+    private void saveRecords() throws IOException {
         PrintWriter output = null;
-
         try {
-            output = new PrintWriter(new FileWriter(RECORDS_FILE_NAME));
+            
+             if(cover.isModeNormal()){
+                  output = new PrintWriter(new FileWriter(RECORDS_FILE_NAME_NORMAL));
+            } 
+             if(cover.isModeHard()){
+                output = new PrintWriter(new FileWriter(RECORDS_FILE_NAME_HARD));
+            }
+           
             int lineCounter = 0;
-            boolean alreadyWrittenScore = false;
+            boolean alredyWrittenScore = false;
+
             for (Record record : listOfRecords) {
-                if (score > record.record && !alreadyWrittenScore) {
+                if (score>record.record && !alredyWrittenScore) {
+
                     output.println(score + ", " + jTextFieldName.getText());
-                    alreadyWrittenScore = true;
+                    alredyWrittenScore = true;
                     lineCounter++;
                 }
                 if (lineCounter < 5) {
@@ -224,7 +261,7 @@ public class RecordsDialog extends javax.swing.JDialog {
                     lineCounter++;
                 }
             }
-            if (!alreadyWrittenScore) {
+            if (!alredyWrittenScore) {
                 output.println(score + ", " + jTextFieldName.getText());
             }
 
@@ -233,13 +270,12 @@ public class RecordsDialog extends javax.swing.JDialog {
                 output.close();
             }
         }
-
     }
 
     /**
      * @param args the command line arguments
      */
-    private void iniRecordLabels() {
+    private void initRecordLabels() {
         recordLabels = new JLabel[5];
         recordLabels[0] = jLabelRecord1;
         recordLabels[1] = jLabelRecord2;

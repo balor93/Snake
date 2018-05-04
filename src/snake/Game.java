@@ -17,9 +17,10 @@ public class Game extends javax.swing.JFrame {
     public Game() {
         setLocationRelativeTo(null);
         initComponents();
-        board.setScoreBoard(scoreBoard);
         Cover c = new Cover(this, true);  
         c.setVisible(true);
+        board.setScoreBoard(scoreBoard);
+        board.setCover(c);
 
     }
 
@@ -37,7 +38,8 @@ public class Game extends javax.swing.JFrame {
         board = new snake.Board();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItemIniGame = new javax.swing.JMenuItem();
+        jMenuItemInitGame = new javax.swing.JMenuItem();
+        jMenuItemChangeMode = new javax.swing.JMenuItem();
         jMenuItemExit = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -47,15 +49,18 @@ public class Game extends javax.swing.JFrame {
         scoreBoard.setText("Score:");
         jPanel1.add(scoreBoard, java.awt.BorderLayout.PAGE_END);
 
+        board.setBackground(new java.awt.Color(102, 255, 102));
+        board.setForeground(new java.awt.Color(0, 0, 0));
+
         javax.swing.GroupLayout boardLayout = new javax.swing.GroupLayout(board);
         board.setLayout(boardLayout);
         boardLayout.setHorizontalGroup(
             boardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 476, Short.MAX_VALUE)
+            .addGap(0, 478, Short.MAX_VALUE)
         );
         boardLayout.setVerticalGroup(
             boardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 330, Short.MAX_VALUE)
+            .addGap(0, 327, Short.MAX_VALUE)
         );
 
         jPanel1.add(board, java.awt.BorderLayout.CENTER);
@@ -64,14 +69,25 @@ public class Game extends javax.swing.JFrame {
 
         jMenu1.setText("Game");
 
-        jMenuItemIniGame.setText("IniGame");
-        jMenuItemIniGame.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemInitGame.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemInitGame.setText("Init Game");
+        jMenuItemInitGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemIniGameActionPerformed(evt);
+                jMenuItemInitGameActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItemIniGame);
+        jMenu1.add(jMenuItemInitGame);
 
+        jMenuItemChangeMode.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemChangeMode.setText("Change Mode");
+        jMenuItemChangeMode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemChangeModeActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemChangeMode);
+
+        jMenuItemExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemExit.setText("Exit");
         jMenuItemExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,12 +107,19 @@ public class Game extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenuItemExitActionPerformed
 
-    private void jMenuItemIniGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemIniGameActionPerformed
+    private void jMenuItemInitGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInitGameActionPerformed
 
         board.initGame();
 
 
-    }//GEN-LAST:event_jMenuItemIniGameActionPerformed
+    }//GEN-LAST:event_jMenuItemInitGameActionPerformed
+
+    private void jMenuItemChangeModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemChangeModeActionPerformed
+        Cover c = new Cover(this, true);  
+        c.setVisible(true);
+        
+        board.setCover(c);
+    }//GEN-LAST:event_jMenuItemChangeModeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -137,8 +160,9 @@ public class Game extends javax.swing.JFrame {
     private snake.Board board;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItemChangeMode;
     private javax.swing.JMenuItem jMenuItemExit;
-    private javax.swing.JMenuItem jMenuItemIniGame;
+    private javax.swing.JMenuItem jMenuItemInitGame;
     private javax.swing.JPanel jPanel1;
     private snake.ScoreBoard scoreBoard;
     // End of variables declaration//GEN-END:variables
