@@ -43,6 +43,9 @@ public class Cover extends javax.swing.JDialog {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
+        jBtnPlay.setBackground(new java.awt.Color(255, 51, 51));
+        jBtnPlay.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jBtnPlay.setForeground(new java.awt.Color(255, 255, 255));
         jBtnPlay.setText("PLAY");
         jBtnPlay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,11 +116,13 @@ public class Cover extends javax.swing.JDialog {
     private void jRadioButtonModeNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonModeNormalActionPerformed
         modeNormal=true;
         isSelected=true;
+        modeHard=false;
     }//GEN-LAST:event_jRadioButtonModeNormalActionPerformed
 
     private void jRadioButtonModeHardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonModeHardActionPerformed
        modeHard=true;
        isSelected=true;
+       modeNormal=false;
     }//GEN-LAST:event_jRadioButtonModeHardActionPerformed
 
     public boolean isModeHard() {

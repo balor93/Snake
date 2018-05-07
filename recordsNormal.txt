@@ -1,5 +1,4 @@
-33, winner
-26,       ññ
-26,   tre
-20,         jonatan
-17,  .ola
+36,   the winner
+21,    p
+18,  o
+2, .
