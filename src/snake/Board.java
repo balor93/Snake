@@ -103,10 +103,10 @@ public class Board extends JPanel implements ActionListener {
         if(cover.isModeNormal()){
         modeNormal();
         }
+        scoreBoard.reset();
         timer.start();
         snake = new Snake();
         food = new Food(snake);
-        scoreBoard.reset();
         removeKeyListener(myKeyAdepter);
         addKeyListener(myKeyAdepter);
 
