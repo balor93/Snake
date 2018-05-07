@@ -1,4 +1,5 @@
-36,   the winner
-21,    p
-18,  o
-2, .
+40, .the winner
+36,         the winner
+32,     op
+27,    ...
+23,  .

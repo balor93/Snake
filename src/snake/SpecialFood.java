@@ -33,7 +33,10 @@ public class SpecialFood extends Food implements ActionListener {
     public int getTimeVisible() {
         return (int) (Math.random() * 10 + 5) * 1000;
     }
-
+    
+    public int getRamdomGrowSnake() {
+        return (int) (Math.random() * 3 + 3);
+    }
     
 
     @Override

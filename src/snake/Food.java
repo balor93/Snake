@@ -27,6 +27,7 @@ public class Food {
 
     public void drawFood(Graphics g, int squareWidth, int squareHeight) {
         Util.drawSquare(g, nodeFood, squareWidth, squareHeight);
+        
 
     }
 

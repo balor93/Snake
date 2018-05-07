@@ -104,6 +104,7 @@ public class Board extends JPanel implements ActionListener {
         modeNormal();
         }
         scoreBoard.reset();
+        countFoods=0;
         timer.start();
         snake = new Snake();
         food = new Food(snake);
@@ -163,8 +164,9 @@ public class Board extends JPanel implements ActionListener {
                 food = new Food(snake);
             } else {
                 if (eatSpecialFood()) {
-                    snake.setCountGrowSnake(3);
-                    scoreBoard.increment(3);
+                    int grow= specialFood.getRamdomGrowSnake();
+                    snake.setCountGrowSnake(grow);
+                    scoreBoard.increment(grow);
                     specialFood=null;
 
                 }
