@@ -44,12 +44,12 @@ public class RecordsDialog extends javax.swing.JDialog {
     /**
      * Creates new form RecordsDialog
      */
-    public RecordsDialog(java.awt.Frame parent, boolean modal, int score, Cover Cover) {
+    public RecordsDialog(java.awt.Frame parent, boolean modal, int score, Cover cover) {
         super(parent, modal);
         initComponents();
-        
+        this.cover=cover;
         initRecordLabels();
-
+        
         minRecord = 0;
         this.score = score;
 

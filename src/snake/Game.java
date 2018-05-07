@@ -10,14 +10,20 @@ package snake;
  * @author alu20909379x
  */
 public class Game extends javax.swing.JFrame {
+   
+    public static Cover c;
 
+    public static Cover getC() {
+        return c;
+    }
+//public static Cover cover;
     /**
      * Creates new form Game
      */
     public Game() {
         setLocationRelativeTo(null);
         initComponents();
-        Cover c = new Cover(this, true);  
+        c = new Cover(this, true);  
         c.setVisible(true);
         board.setScoreBoard(scoreBoard);
         board.setCover(c);
@@ -115,7 +121,7 @@ public class Game extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemInitGameActionPerformed
 
     private void jMenuItemChangeModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemChangeModeActionPerformed
-        Cover c = new Cover(this, true);  
+        c = new Cover(this, true);  
         c.setVisible(true);
         
         board.setCover(c);

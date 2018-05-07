@@ -212,7 +212,7 @@ public class Board extends JPanel implements ActionListener {
         timer.stop();
         GameOver d = new GameOver(parentFrame, true, scoreBoard);
         d.setVisible(true);
-        RecordsDialog r = new RecordsDialog(parentFrame, true, scoreBoard.getScore(), cover );
+        RecordsDialog r = new RecordsDialog(parentFrame, true, scoreBoard.getScore(), Game.getC() );
         r.setVisible(true);
 
     }
