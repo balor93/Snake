@@ -33,6 +33,8 @@ public class RecordsDialog extends javax.swing.JDialog {
         }
     }
 
+    private static final String RECORDS_FILE_NAME_HARD_WITHOUTWALLS = "recordsHard_withoutWalls.txt";
+    private static final String RECORDS_FILE_NAME_NORMAL_WITHOUTWALLS = "recordsNormal_withoutWalls.txt";
     private static final String RECORDS_FILE_NAME_HARD = "recordsHard.txt";
     private static final String RECORDS_FILE_NAME_NORMAL = "recordsNormal.txt";
     private int score;
@@ -47,14 +49,14 @@ public class RecordsDialog extends javax.swing.JDialog {
     public RecordsDialog(java.awt.Frame parent, boolean modal, int score, Cover cover) {
         super(parent, modal);
         initComponents();
-        this.cover=cover;
+        this.cover = cover;
         initRecordLabels();
-        
+
         minRecord = 0;
         this.score = score;
 
         listOfRecords = new ArrayList<Record>();
-        
+
         try {
             readRecords();
         } catch (IOException ex) {
@@ -76,13 +78,22 @@ public class RecordsDialog extends javax.swing.JDialog {
 
     private void readRecords() throws IOException {
         BufferedReader input = null;
-         
+
         try {
-            if(cover.isModeNormal()){
-            input = new BufferedReader(new FileReader(RECORDS_FILE_NAME_NORMAL));
-            } 
-            if(cover.isModeHard()){
-                input = new BufferedReader(new FileReader(RECORDS_FILE_NAME_HARD));
+            if (ConfigSingleton.getInstance().isWithoutWalls()) {
+                if (ConfigSingleton.getInstance().isModeNormal()) {
+                    input = new BufferedReader(new FileReader(RECORDS_FILE_NAME_NORMAL_WITHOUTWALLS));
+                }
+                if (ConfigSingleton.getInstance().isModeHard()) {
+                    input = new BufferedReader(new FileReader(RECORDS_FILE_NAME_HARD_WITHOUTWALLS));
+                }
+            } else {
+                if (ConfigSingleton.getInstance().isModeNormal()) {
+                    input = new BufferedReader(new FileReader(RECORDS_FILE_NAME_NORMAL));
+                }
+                if (ConfigSingleton.getInstance().isModeHard()) {
+                    input = new BufferedReader(new FileReader(RECORDS_FILE_NAME_HARD));
+                }
             }
             int lineCount = 0;
             String line;
@@ -96,8 +107,8 @@ public class RecordsDialog extends javax.swing.JDialog {
 
                 listOfRecords.add(new Record(Integer.parseInt(lineRecord[0]), lineRecord[1]));
             }
-            
-            if (lineCount == 5 ) {
+
+            if (lineCount == 5) {
                 try {
                     minRecord = Integer.parseInt(lineRecord[0]);
                 } catch (NumberFormatException ex) {
@@ -238,19 +249,27 @@ public class RecordsDialog extends javax.swing.JDialog {
     private void saveRecords() throws IOException {
         PrintWriter output = null;
         try {
-            
-             if(cover.isModeNormal()){
-                  output = new PrintWriter(new FileWriter(RECORDS_FILE_NAME_NORMAL));
-            } 
-             if(cover.isModeHard()){
-                output = new PrintWriter(new FileWriter(RECORDS_FILE_NAME_HARD));
+            if (ConfigSingleton.getInstance().isWithoutWalls()) {
+                if (ConfigSingleton.getInstance().isModeNormal()) {
+                    output = new PrintWriter(new FileWriter(RECORDS_FILE_NAME_NORMAL_WITHOUTWALLS));
+                }
+                if (ConfigSingleton.getInstance().isModeHard()) {
+                    output = new PrintWriter(new FileWriter(RECORDS_FILE_NAME_HARD_WITHOUTWALLS));
+                }
+            } else {
+                if (ConfigSingleton.getInstance().isModeNormal()) {
+                    output = new PrintWriter(new FileWriter(RECORDS_FILE_NAME_NORMAL));
+                }
+                if (ConfigSingleton.getInstance().isModeHard()) {
+                    output = new PrintWriter(new FileWriter(RECORDS_FILE_NAME_HARD));
+                }
             }
-           
+
             int lineCounter = 0;
             boolean alredyWrittenScore = false;
 
             for (Record record : listOfRecords) {
-                if (score>record.record && !alredyWrittenScore) {
+                if (score > record.record && !alredyWrittenScore) {
 
                     output.println(score + ", " + jTextFieldName.getText());
                     alredyWrittenScore = true;

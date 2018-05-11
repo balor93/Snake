@@ -5,19 +5,23 @@
  */
 package snake;
 
+import java.awt.Frame;
+import java.awt.event.ItemEvent;
+import javax.swing.event.ChangeEvent;
+
 /**
  *
  * @author alu20909379x
  */
 public class Cover extends javax.swing.JDialog {
-    public boolean modeHard;
-    public boolean modeNormal;
+
     public boolean isSelected;
+
     /**
      * Creates new form Cover
      */
     public Cover(java.awt.Frame parent, boolean modal) {
-        
+
         super(parent, modal);
         setLocationRelativeTo(null);
         initComponents();
@@ -38,6 +42,8 @@ public class Cover extends javax.swing.JDialog {
         jBtnPlay = new javax.swing.JButton();
         jRadioButtonModeNormal = new javax.swing.JRadioButton();
         jRadioButtonModeHard = new javax.swing.JRadioButton();
+        jCheckBoxWithoutWalls = new javax.swing.JCheckBox();
+        jRadioButton1 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -73,29 +79,60 @@ public class Cover extends javax.swing.JDialog {
             }
         });
 
+        jCheckBoxWithoutWalls.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jCheckBoxWithoutWalls.setForeground(new java.awt.Color(255, 51, 51));
+        jCheckBoxWithoutWalls.setText("Without Walls");
+        jCheckBoxWithoutWalls.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxWithoutWallsItemStateChanged(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jRadioButton1.setForeground(new java.awt.Color(255, 51, 51));
+        jRadioButton1.setText("Personalized");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout imagePanel1Layout = new javax.swing.GroupLayout(imagePanel1);
         imagePanel1.setLayout(imagePanel1Layout);
         imagePanel1Layout.setHorizontalGroup(
             imagePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(imagePanel1Layout.createSequentialGroup()
-                .addContainerGap(93, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, imagePanel1Layout.createSequentialGroup()
+                .addContainerGap(59, Short.MAX_VALUE)
                 .addComponent(jBtnPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80)
+                .addGap(160, 160, 160)
                 .addGroup(imagePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButtonModeHard)
-                    .addComponent(jRadioButtonModeNormal))
-                .addGap(64, 64, 64))
+                    .addGroup(imagePanel1Layout.createSequentialGroup()
+                        .addComponent(jRadioButton1)
+                        .addGap(14, 14, 14))
+                    .addGroup(imagePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, imagePanel1Layout.createSequentialGroup()
+                            .addGroup(imagePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jRadioButtonModeHard)
+                                .addComponent(jRadioButtonModeNormal))
+                            .addGap(10, 10, 10))
+                        .addComponent(jCheckBoxWithoutWalls, javax.swing.GroupLayout.Alignment.TRAILING)))
+                .addContainerGap())
         );
         imagePanel1Layout.setVerticalGroup(
             imagePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, imagePanel1Layout.createSequentialGroup()
-                .addContainerGap(228, Short.MAX_VALUE)
-                .addGroup(imagePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtnPlay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, imagePanel1Layout.createSequentialGroup()
+                .addContainerGap(160, Short.MAX_VALUE)
+                .addGroup(imagePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(imagePanel1Layout.createSequentialGroup()
+                        .addComponent(jCheckBoxWithoutWalls)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jRadioButtonModeNormal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButtonModeHard)))
+                        .addComponent(jRadioButtonModeHard)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButton1))
+                    .addComponent(jBtnPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36))
         );
 
@@ -107,31 +144,41 @@ public class Cover extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPlayActionPerformed
-        if(isSelected){
-        dispose();
+        if (isSelected) {
+           
+            dispose();
         }
 
     }//GEN-LAST:event_jBtnPlayActionPerformed
 
     private void jRadioButtonModeNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonModeNormalActionPerformed
-        modeNormal=true;
-        isSelected=true;
-        modeHard=false;
+        ConfigSingleton.getInstance().setModeNormal(true);
+        isSelected = true;
+        ConfigSingleton.getInstance().setModeHard(false);
+        ConfigSingleton.getInstance().setPersonalized(false);
     }//GEN-LAST:event_jRadioButtonModeNormalActionPerformed
 
     private void jRadioButtonModeHardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonModeHardActionPerformed
-       modeHard=true;
-       isSelected=true;
-       modeNormal=false;
+        ConfigSingleton.getInstance().setModeHard(true);
+        isSelected = true;
+        ConfigSingleton.getInstance().setModeNormal(false);
+        ConfigSingleton.getInstance().setPersonalized(false);
     }//GEN-LAST:event_jRadioButtonModeHardActionPerformed
 
-    public boolean isModeHard() {
-        return modeHard;
-    }
+    private void jCheckBoxWithoutWallsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxWithoutWallsItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            ConfigSingleton.getInstance().setWithoutWalls(true);
+        } else {
+            ConfigSingleton.getInstance().setWithoutWalls(false);
+        }
+    }//GEN-LAST:event_jCheckBoxWithoutWallsItemStateChanged
 
-    public boolean isModeNormal() {
-        return modeNormal;
-    }
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        ConfigSingleton.getInstance().setPersonalized(true);
+        isSelected = true;
+        ConfigSingleton.getInstance().setModeHard(false);
+        ConfigSingleton.getInstance().setModeNormal(false);
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,7 +226,9 @@ public class Cover extends javax.swing.JDialog {
     private javax.swing.ButtonGroup buttonGroup1;
     private snake.ImagePanel imagePanel1;
     private javax.swing.JButton jBtnPlay;
+    private javax.swing.JCheckBox jCheckBoxWithoutWalls;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButtonModeHard;
     private javax.swing.JRadioButton jRadioButtonModeNormal;
     // End of variables declaration//GEN-END:variables

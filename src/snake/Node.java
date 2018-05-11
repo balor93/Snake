@@ -23,5 +23,21 @@ public class Node {
         this.col = col;
         this.color = color;
     }
+    
+    public int getFirstRow(){
+        return 0;
+    }
+    
+     public int getFirstCol(){
+        return 0;
+    }
+    
+     public int getLastRow(){
+        return ConfigSingleton.getInstance().getNum_rows();
+    }
+     
+    public int getLastCol(){
+        return ConfigSingleton.getInstance().getNum_cols();
+    }
 
 }

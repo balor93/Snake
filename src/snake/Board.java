@@ -69,14 +69,13 @@ public class Board extends JPanel implements ActionListener {
 
     }
 
-    public static final int NUM_ROWS = 25;
-    public static final int NUM_COLS = 25;
+    
     private Timer timer;
     private MyKeyAdapter myKeyAdepter;
     public ScoreBoard scoreBoard;
     public Cover cover;
     private JFrame parentFrame;
-    private int deltaTime;
+    private Personalized personalized;
     private Food food;
     private Snake snake;
     private SpecialFood specialFood;
@@ -87,22 +86,25 @@ public class Board extends JPanel implements ActionListener {
         super();
 
         myKeyAdepter = new MyKeyAdapter();
-        deltaTime = 200;
-        timer = new Timer(deltaTime, this);
+        
+        timer = new Timer(ConfigSingleton.getInstance().getDeltaTime(), this);
         setFocusable(true);
         requestFocusInWindow();
         snake = new Snake();
         countFoods = 0;
         
+        
     }
 
     public void initGame() {
-        if(cover.isModeHard()){
+        
+        if( ConfigSingleton.getInstance().isModeHard() ){
         modeHard();
         }
-        if(cover.isModeNormal()){
+        if(ConfigSingleton.getInstance().isModeNormal()){
         modeNormal();
         }
+        timer = new Timer(ConfigSingleton.getInstance().getDeltaTime(), this);
         scoreBoard.reset();
         countFoods=0;
         timer.start();
@@ -116,12 +118,12 @@ public class Board extends JPanel implements ActionListener {
     
     
     public void modeHard(){
-        deltaTime = 100;
-        timer = new Timer(deltaTime, this);
+        ConfigSingleton.getInstance().setDeltaTime(100);
+        
     }
      public void modeNormal(){
-        deltaTime = 200;
-        timer = new Timer(deltaTime, this);
+        ConfigSingleton.getInstance().setDeltaTime(200);
+        
     }
 
     public void setScoreBoard(ScoreBoard scoreBoard) {
@@ -137,7 +139,7 @@ public class Board extends JPanel implements ActionListener {
     }
 
     public boolean incrementLevels() {
-        if (scoreBoard.getScore() % 5 == 0 && deltaTime!=0) {
+        if ( ConfigSingleton.getInstance().getScore() % 5 == 0 && ConfigSingleton.getInstance().getDeltaTime()!=0) {
 
             return true;
         }
@@ -158,8 +160,8 @@ public class Board extends JPanel implements ActionListener {
                 }
 
                 if (incrementLevels()) {
-                    deltaTime = deltaTime - 20;
-                    timer.setDelay(deltaTime);
+                    ConfigSingleton.getInstance().setDeltaTime(ConfigSingleton.getInstance().getDeltaTime()-20);
+                    timer.setDelay(ConfigSingleton.getInstance().getDeltaTime());
                 }
                 food = new Food(snake);
             } else {
@@ -201,11 +203,11 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private int squareWidth() {
-        return getWidth() / NUM_COLS;
+        return getWidth() / ConfigSingleton.getInstance().getNum_cols();
     }
 
     private int squareHeight() {
-        return getHeight() / NUM_ROWS;
+        return getHeight() / ConfigSingleton.getInstance().getNum_rows();
     }
 
     public void gameOver() {
@@ -214,7 +216,7 @@ public class Board extends JPanel implements ActionListener {
         timer.stop();
         GameOver d = new GameOver(parentFrame, true, scoreBoard);
         d.setVisible(true);
-        RecordsDialog r = new RecordsDialog(parentFrame, true, scoreBoard.getScore(), Game.getC() );
+        RecordsDialog r = new RecordsDialog(parentFrame, true,  ConfigSingleton.getInstance().getScore(), Game.getC() );
         r.setVisible(true);
 
     }
@@ -239,7 +241,7 @@ public class Board extends JPanel implements ActionListener {
 
     public void drawBorder(Graphics g) {
         g.setColor(Color.black);
-        g.drawRect(0, 0, NUM_COLS * squareWidth(), NUM_ROWS * squareHeight());
+        g.drawRect(0, 0, ConfigSingleton.getInstance().getNum_cols() * squareWidth(), ConfigSingleton.getInstance().getNum_rows() * squareHeight());
     }
 
     public void removeSpecialFood() {

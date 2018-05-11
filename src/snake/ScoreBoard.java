@@ -13,43 +13,43 @@ import javax.swing.JLabel;
  */
 public class ScoreBoard extends JLabel {
 
-    private int score;
+    
     private int level;
 
     public ScoreBoard() {
         super(); //inicializamos la superclase
-        score = 0;
+        ConfigSingleton.getInstance().setScore(0);
         level=0;
     }
 
     public void increment(int points) {
+        int score = ConfigSingleton.getInstance().getScore();
         score += points;
-        if (getScore() % 5 == 0 ){
+         ConfigSingleton.getInstance().setScore(score);
+        if (ConfigSingleton.getInstance().getScore() % 5 == 0 ){
         level++;
         }
-        setText("Level:"+ level+ " Score:" + score);
+        setText("Level:"+ level+ " Score:" + ConfigSingleton.getInstance().getScore());
     }
 
     public void reset() {
-        score = 0;
+       ConfigSingleton.getInstance().setScore(0);
         level=0;
-        setText("Level:"+ level+ " Score:" + score);
+        setText("Level:"+ level+ " Score:" + ConfigSingleton.getInstance().getScore());
     }
 
     public void pause() {
         setText("Paused");
     }
 
-    public int getScore() {
-        return score;
-    }
+   
 
     public void printScore() {
-        setText("Level:"+ level+ " Score:" + score);
+        setText("Level:"+ level+ " Score:" + ConfigSingleton.getInstance().getScore());
     }
 
     public String endScore() {
-        return "Level:"+ getLevel()+ " Score : " + getScore();
+        return "Level:"+ getLevel()+ " Score : " + ConfigSingleton.getInstance().getScore();
     }
     public int getLevel() {
         return level;

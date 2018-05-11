@@ -32,12 +32,12 @@ public class Food {
     }
 
     public int getRandomRow() {
-        return (int) (Math.random() * Board.NUM_ROWS);
+        return (int) (Math.random() * ConfigSingleton.getInstance().NUM_ROWS);
     }
 
     public int getRandomCol() {
 
-        return (int) (Math.random() * Board.NUM_COLS);
+        return (int) (Math.random() * ConfigSingleton.getInstance().NUM_COLS);
     }
 
     public boolean checkRowColSnake(Snake snake) {

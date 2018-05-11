@@ -5,6 +5,8 @@
  */
 package snake;
 
+import java.awt.Frame;
+
 /**
  *
  * @author alu20909379x
@@ -14,8 +16,10 @@ public class Game extends javax.swing.JFrame {
     public static Cover c;
 
     public static Cover getC() {
-        return c;
+        return c;  
+    
     }
+   
 //public static Cover cover;
     /**
      * Creates new form Game
@@ -25,6 +29,10 @@ public class Game extends javax.swing.JFrame {
         initComponents();
         c = new Cover(this, true);  
         c.setVisible(true);
+         if(ConfigSingleton.getInstance().isPersonalized()){
+          Personalized  p = new Personalized(this, true);
+            p.setVisible(true);
+         }
         board.setScoreBoard(scoreBoard);
         board.setCover(c);
 
@@ -125,6 +133,12 @@ public class Game extends javax.swing.JFrame {
         c.setVisible(true);
         
         board.setCover(c);
+        
+        
+        if(ConfigSingleton.getInstance().isPersonalized()){
+          Personalized  p = new Personalized(this, true);
+            p.setVisible(true);
+         }
     }//GEN-LAST:event_jMenuItemChangeModeActionPerformed
 
     /**

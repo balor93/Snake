@@ -1,5 +1,5 @@
-40, .the winner
-36,         the winner
-32,     op
-27,    ...
-23,  .
+40,   .the winner
+36,           the winner
+32,       op
+29, .lkh
+27,      ...
