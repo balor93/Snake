@@ -69,71 +69,78 @@ public class Board extends JPanel implements ActionListener {
 
     }
 
-    
     private Timer timer;
     private MyKeyAdapter myKeyAdepter;
     public ScoreBoard scoreBoard;
     public Cover cover;
     private JFrame parentFrame;
     private Personalized personalized;
-    private Food food;
+    private NormalFood normalFood;
     private Snake snake;
     private SpecialFood specialFood;
-    private int countFoods;
+    private FactoryFood factoryFood;
 
     public Board() {
 
         super();
 
         myKeyAdepter = new MyKeyAdapter();
-        
+
         timer = new Timer(ConfigSingleton.getInstance().getDeltaTime(), this);
-  ;
+        ;
         setFocusable(true);
         requestFocusInWindow();
         snake = new Snake();
-        countFoods = 0;
-        
-        
+
     }
 
     public void initGame() {
-        
-        if( ConfigSingleton.getInstance().isModeHard() ){
-        modeHard();
+
+        if (ConfigSingleton.getInstance().isModeHard()) {
+            modeHard();
         }
-        if(ConfigSingleton.getInstance().isModeNormal()){
-        modeNormal();
+        if (ConfigSingleton.getInstance().isModeNormal()) {
+            modeNormal();
         }
-        if(timer!=null){
+        if (timer != null) {
             timer.stop();
         }
         timer = new Timer(ConfigSingleton.getInstance().getDeltaTime(), this);
         scoreBoard.reset();
-        countFoods=0;
+        ConfigSingleton.getInstance().setNumNormalFood(0);
         timer.start();
         snake = new Snake();
-        food = new Food(snake);
+        factoryFood = new FactoryFood(this, snake);
+        buildFood();
         removeKeyListener(myKeyAdepter);
         addKeyListener(myKeyAdepter);
 
     }
-    
-    
-    
-    public void modeHard(){
-        ConfigSingleton.getInstance().setDeltaTime(100);
-        
+
+    public void buildFood() {
+        Food food = factoryFood.createFood();
+        if (food instanceof NormalFood) {
+            normalFood = (NormalFood) food;
+        } else {
+            specialFood = (SpecialFood) food;
+        }
+
     }
-     public void modeNormal(){
+
+    public void modeHard() {
+        ConfigSingleton.getInstance().setDeltaTime(100);
+
+    }
+
+    public void modeNormal() {
         ConfigSingleton.getInstance().setDeltaTime(200);
-        
+
     }
 
     public void setScoreBoard(ScoreBoard scoreBoard) {
         this.scoreBoard = scoreBoard;
     }
-    
+
     public void setCover(Cover cover) {
         this.cover = cover;
     }
@@ -143,7 +150,7 @@ public class Board extends JPanel implements ActionListener {
     }
 
     public boolean incrementLevels() {
-        if ( ConfigSingleton.getInstance().getScore() % 5 == 0 && ConfigSingleton.getInstance().getDeltaTime()!=0) {
+        if (ConfigSingleton.getInstance().getScore() % 5 == 0 && ConfigSingleton.getInstance().getDeltaTime() != 0) {
 
             return true;
         }
@@ -152,30 +159,31 @@ public class Board extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        
+
         if (!snake.hitWall() && !snake.hitSnake()) {
             if (eat()) {
                 snake.setCountGrowSnake(1);
                 scoreBoard.increment(1);
-                countFoods++;
-                if (countFoods == 5) {
-                    specialFood = new SpecialFood(snake, this);
-                    countFoods = 0;
-                }
+                
+                normalFood = null;
+                buildFood();
 
                 if (incrementLevels()) {
-                    ConfigSingleton.getInstance().setDeltaTime(ConfigSingleton.getInstance().getDeltaTime()-20);
+                    ConfigSingleton.getInstance().setDeltaTime(ConfigSingleton.getInstance().getDeltaTime() - 20);
                     timer.setDelay(ConfigSingleton.getInstance().getDeltaTime());
                 }
-                food = new Food(snake);
+
             } else {
                 if (eatSpecialFood()) {
-                    int grow= specialFood.getRamdomGrowSnake();
+                    int grow = specialFood.getRamdomGrowSnake();
                     snake.setCountGrowSnake(grow);
                     scoreBoard.increment(grow);
-                    specialFood=null;
+                    removeSpecialFood();
+                    
 
                 }
+                
+                
 
             }
             snake.move();
@@ -192,8 +200,8 @@ public class Board extends JPanel implements ActionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawBorder(g);
-        if (food != null) {
-            food.drawFood(g, squareWidth(), squareHeight());
+        if (normalFood != null) {
+            normalFood.drawFood(g, squareWidth(), squareHeight());
         }
 
         if (specialFood != null) {
@@ -220,26 +228,27 @@ public class Board extends JPanel implements ActionListener {
         timer.stop();
         GameOver d = new GameOver(parentFrame, true, scoreBoard);
         d.setVisible(true);
-        RecordsDialog r = new RecordsDialog(parentFrame, true,  ConfigSingleton.getInstance().getScore(), Game.getC() );
+        RecordsDialog r = new RecordsDialog(parentFrame, true, ConfigSingleton.getInstance().getScore(), Game.getC());
         r.setVisible(true);
-        
+
     }
 
     public boolean eat() {
-        if (snake.getHeadSnake().col == food.getCol() && snake.getHeadSnake().row == food.getRow()) {
-            return true;
-        } else {
-            return false;
+        if (normalFood != null) {
+            if (snake.getHeadSnake().col == normalFood.getCol() && snake.getHeadSnake().row == normalFood.getRow()) {
+                return true;
+            }
         }
+        return false;
 
     }
 
     public boolean eatSpecialFood() {
-        if(specialFood!=null){
+        if (specialFood != null) {
             if (snake.getHeadSnake().col == specialFood.getCol() && snake.getHeadSnake().row == specialFood.getRow()) {
                 return true;
-             } 
-         }
+            }
+        }
         return false;
     }
 
@@ -250,6 +259,7 @@ public class Board extends JPanel implements ActionListener {
 
     public void removeSpecialFood() {
         specialFood = null;
+        buildFood();
     }
 
 }

@@ -12,26 +12,18 @@ import java.awt.Graphics;
  *
  * @author alu20909379x
  */
-public class Food {
-
+public abstract class Food {
+    
     public Node nodeFood;
-
-    public Food(Snake snake) {
-
+    
+    public Food(Snake snake){
         nodeFood = new Node(getRandomRow(), getRandomCol(), Color.orange);
         while (checkRowColSnake(snake)) {
             nodeFood = new Node(getRandomRow(), getRandomCol(), Color.orange);
         }
 
     }
-
-    public void drawFood(Graphics g, int squareWidth, int squareHeight) {
-        Util.drawSquare(g, nodeFood, squareWidth, squareHeight);
-        
-
-    }
-
-    public int getRandomRow() {
+      public int getRandomRow() {
         return (int) (Math.random() * ConfigSingleton.getInstance().NUM_ROWS);
     }
 
@@ -59,5 +51,10 @@ public class Food {
     public int getCol() {
         return nodeFood.col;
     }
+    
+    public void drawFood(Graphics g, int squareWidth, int squareHeight) {
+        Util.drawSquare(g, nodeFood, squareWidth, squareHeight);
+        
 
+    }
 }

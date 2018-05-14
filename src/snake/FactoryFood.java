@@ -19,5 +19,13 @@ public class FactoryFood {
         this.snake=snake;
     }
     
+    public Food createFood(){
+        if(ConfigSingleton.getInstance().getNumNormalFood()==2){
+            ConfigSingleton.getInstance().setNumNormalFood(0);
+            return new SpecialFood(snake, board);
+        }else{
+            return new NormalFood(snake);
+        }
+    }
     
 }

@@ -18,7 +18,7 @@ import javax.swing.Timer;
 public class SpecialFood extends Food implements ActionListener {
 
     private int visibleTimer;
-    private Timer time;
+    public Timer time;
     private Board board;
 
     public SpecialFood(Snake snake, Board board) {
@@ -26,7 +26,7 @@ public class SpecialFood extends Food implements ActionListener {
         visibleTimer = getTimeVisible();
         time = new Timer(visibleTimer, this);
         this.board = board;
-        nodeFood.color = Color.BLUE;
+        nodeFood.color=Color.BLUE;
         time.start();
     }
 
@@ -44,5 +44,7 @@ public class SpecialFood extends Food implements ActionListener {
         board.removeSpecialFood();
         time.stop();
     }
+
+    
 
 }
