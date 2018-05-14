@@ -13,12 +13,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /**
  *
  * @author alu20909379x
  */
-public class ConfigSingleton {
+public class ConfigSingleton implements Serializable{
 
     private static ConfigSingleton instance = null;
 
@@ -33,6 +34,7 @@ public class ConfigSingleton {
     private int num_rows;
     private int num_cols;
     private int deltaTime;
+    private int numNormalFood;
 
     private ConfigSingleton() {
         score = 0;
@@ -42,7 +44,16 @@ public class ConfigSingleton {
         num_cols = NUM_COLS;
         num_rows = NUM_ROWS;
         deltaTime = 200;
+        numNormalFood=0;
 
+    }
+
+    public int getNumNormalFood() {
+        return numNormalFood;
+    }
+
+    public void setNumNormalFood(int numNormalFood) {
+        this.numNormalFood = numNormalFood;
     }
 
     public boolean isPersonalized() {
@@ -133,7 +144,7 @@ public class ConfigSingleton {
     }
     //leer
 
-    public static void printConfig(String fileName) throws IOException, ClassNotFoundException {
+    public static void printConfig() throws IOException, ClassNotFoundException {
         ObjectInputStream in = null;
         ConfigSingleton c;
         try {
