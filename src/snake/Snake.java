@@ -54,28 +54,28 @@ public class Snake {
         switch (direccion) {
             case DOWN:
                 if (ConfigSingleton.getInstance().isWithoutWalls() && head.row == ConfigSingleton.getInstance().getNum_rows()-1) {
-                    listNodes.add(0, new Node(head.getFirstRow() + 1, head.col, Color.red));
+                    listNodes.add(0, new Node(head.getFirstRow(), head.col, Color.red));
                 } else {
                     listNodes.add(0, new Node(head.row + 1, head.col, Color.red));
                 }
                 break;
             case UP:
                 if (ConfigSingleton.getInstance().isWithoutWalls() && head.row == 0) {
-                    listNodes.add(0, new Node(head.getLastRow() - 1, head.col, Color.red));
+                    listNodes.add(0, new Node(head.getLastRow(), head.col, Color.red));
                 } else {
                     listNodes.add(0, new Node(head.row - 1, head.col, Color.red));
                 }
                 break;
             case LEFT:
                 if (ConfigSingleton.getInstance().isWithoutWalls() && head.col== 0) {
-                    listNodes.add(0, new Node(head.row, head.getLastCol() - 1, Color.red));
+                    listNodes.add(0, new Node(head.row, head.getLastCol() , Color.red));
                 } else {
                     listNodes.add(0, new Node(head.row, head.col - 1, Color.red));
                 }
                 break;
             case RIGHT:
                 if (ConfigSingleton.getInstance().isWithoutWalls() && head.col == ConfigSingleton.getInstance().getNum_cols()-1) {
-                    listNodes.add(0, new Node(head.row, head.getLastCol() + 1, Color.red));
+                    listNodes.add(0, new Node(head.row, head.getFirstCol(), Color.red));
                 } else {
                     listNodes.add(0, new Node(head.row, head.col + 1, Color.red));
                 }
@@ -99,8 +99,8 @@ public class Snake {
         Node nextNode = null;
         switch (direccion) {
             case DOWN:
-                if (ConfigSingleton.getInstance().isWithoutWalls() && head.row == ConfigSingleton.getInstance().getNum_rows() ) {
-                    nextNode = new Node(head.getFirstRow() + 1, head.col, Color.red);
+                if (ConfigSingleton.getInstance().isWithoutWalls() && head.row == ConfigSingleton.getInstance().getNum_rows()-1 ) {
+                    nextNode = new Node(head.getFirstRow() , head.col, Color.red);
                 } else {
                     nextNode = new Node(head.row + 1, head.col, Color.red);
                 }
@@ -120,8 +120,8 @@ public class Snake {
                 }
                 break;
             case RIGHT:
-                if (ConfigSingleton.getInstance().isWithoutWalls() && head.col == ConfigSingleton.getInstance().getNum_cols()) {
-                    nextNode = new Node(head.row, head.getLastCol() + 1, Color.red);
+                if (ConfigSingleton.getInstance().isWithoutWalls() && head.col == ConfigSingleton.getInstance().getNum_cols()-1) {
+                    nextNode = new Node(head.row, head.getFirstCol() , Color.red);
                 } else {
                     nextNode = new Node(head.row, head.col + 1, Color.red);
                 }

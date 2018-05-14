@@ -88,6 +88,7 @@ public class Board extends JPanel implements ActionListener {
         myKeyAdepter = new MyKeyAdapter();
         
         timer = new Timer(ConfigSingleton.getInstance().getDeltaTime(), this);
+  ;
         setFocusable(true);
         requestFocusInWindow();
         snake = new Snake();
@@ -103,6 +104,9 @@ public class Board extends JPanel implements ActionListener {
         }
         if(ConfigSingleton.getInstance().isModeNormal()){
         modeNormal();
+        }
+        if(timer!=null){
+            timer.stop();
         }
         timer = new Timer(ConfigSingleton.getInstance().getDeltaTime(), this);
         scoreBoard.reset();
@@ -218,7 +222,7 @@ public class Board extends JPanel implements ActionListener {
         d.setVisible(true);
         RecordsDialog r = new RecordsDialog(parentFrame, true,  ConfigSingleton.getInstance().getScore(), Game.getC() );
         r.setVisible(true);
-
+        
     }
 
     public boolean eat() {

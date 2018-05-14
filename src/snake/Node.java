@@ -33,11 +33,11 @@ public class Node {
     }
     
      public int getLastRow(){
-        return ConfigSingleton.getInstance().getNum_rows();
+        return ConfigSingleton.getInstance().getNum_rows()-1;
     }
      
     public int getLastCol(){
-        return ConfigSingleton.getInstance().getNum_cols();
+        return ConfigSingleton.getInstance().getNum_cols()-1;
     }
 
 }
