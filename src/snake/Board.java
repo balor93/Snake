@@ -87,7 +87,7 @@ public class Board extends JPanel implements ActionListener {
         myKeyAdepter = new MyKeyAdapter();
 
         timer = new Timer(ConfigSingleton.getInstance().getDeltaTime(), this);
-        ;
+        
         setFocusable(true);
         requestFocusInWindow();
         snake = new Snake();
@@ -167,6 +167,9 @@ public class Board extends JPanel implements ActionListener {
                 
                 normalFood = null;
                 buildFood();
+                /*if(specialFood==null){
+                    buildFood();
+                }*/
 
                 if (incrementLevels()) {
                     ConfigSingleton.getInstance().setDeltaTime(ConfigSingleton.getInstance().getDeltaTime() - 20);

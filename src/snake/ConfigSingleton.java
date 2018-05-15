@@ -129,13 +129,14 @@ public class ConfigSingleton implements Serializable{
     }
 
     //guardar
-    public static void appendConfig(ConfigSingleton c) throws IOException {
+    public static void appendConfig() throws IOException {
         ObjectOutputStream out = null;
         try {
             out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("ConfigSingleton.dat")));
 
-            out.writeObject(c);
-
+            out.writeObject(instance);
+        }catch(IOException ex){
+            ex.printStackTrace();
         } finally {
             if (out != null) {
                 out.close();
@@ -146,14 +147,14 @@ public class ConfigSingleton implements Serializable{
 
     public static void printConfig() throws IOException, ClassNotFoundException {
         ObjectInputStream in = null;
-        ConfigSingleton c;
+        
         try {
             in = new ObjectInputStream(new BufferedInputStream(new FileInputStream("ConfigSingleton.dat")));
 
             while (true) {
 
-                c = (ConfigSingleton) in.readObject();
-                System.out.println(c);
+                instance = (ConfigSingleton) in.readObject();
+                System.out.println(instance);
             }
 
         } catch (EOFException e) {

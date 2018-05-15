@@ -10,8 +10,8 @@ package snake;
  * @author alu20909379x
  */
 public class FactoryFood {
-    Snake snake;
-    Board board;
+    public Snake snake;
+    public Board board;
     
     public FactoryFood(Board board, Snake snake){
     
@@ -20,7 +20,7 @@ public class FactoryFood {
     }
     
     public Food createFood(){
-        if(ConfigSingleton.getInstance().getNumNormalFood()==2){
+        if(ConfigSingleton.getInstance().getNumNormalFood()==5){
             ConfigSingleton.getInstance().setNumNormalFood(0);
             return new SpecialFood(snake, board);
         }else{

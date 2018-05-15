@@ -7,6 +7,9 @@ package snake;
 
 import java.awt.Frame;
 import java.awt.event.ItemEvent;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.event.ChangeEvent;
 
 /**
@@ -145,7 +148,11 @@ public class Cover extends javax.swing.JDialog {
 
     private void jBtnPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPlayActionPerformed
         if (isSelected) {
-           
+            try {
+                ConfigSingleton.getInstance().appendConfig();
+            } catch (IOException ex) {
+                Logger.getLogger(Cover.class.getName()).log(Level.SEVERE, null, ex);
+            }
             dispose();
         }
 
